@@ -216,6 +216,24 @@ void Adafruit_GFX::drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1,
         endWrite();
     }
 }
+// Draw a Pentagram
+void AdAdafruit_GFX::drawPentagram(int16_t x0, int16_t y0, int16_t r, uint16_t color){
+    int x[5], y[5];
+    int angle = 90;
+    for(int i=0;i<5;i++){
+        x[i] = x0 + r * sin(PI * angle/180);
+        y[i] = y0 + r * sin(PI * angle/180);
+        angle+=72; //360/5==72
+    }
+    for(int i=0;i<5;i++) 
+    {
+        for(int j=i+2;j<5;j++)//和自己相邻的点不画线
+        {
+            if(i==0&&j==5) continue;
+            drawLine(x[i], y[i], x[j], y[j], color);
+        }
+    }
+}
 
 // Draw a circle outline
 void Adafruit_GFX::drawCircle(int16_t x0, int16_t y0, int16_t r,
